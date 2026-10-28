@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0c0a12">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Pinta Con Música</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- INTRO: el pincel pinta el título en 4 segundos -->
+<section id="intro" class="screen active">
+  <div class="brush-wrap">
+    <h1 class="paint-title">Pinta Con Música</h1>
+    <svg class="brush" viewBox="0 0 120 40" aria-hidden="true">
+      <rect x="40" y="16" width="78" height="8" rx="4" fill="#c98b4b" transform="rotate(-8 40 20)"/>
+      <rect x="30" y="14" width="16" height="12" fill="#bbb" transform="rotate(-8 30 20)"/>
+      <path d="M32 14 C14 10 4 18 2 26 C10 30 24 28 32 26 Z" fill="#ff2ee6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- MENÚ -->
+<section id="menu" class="screen">
+  <h2 class="logo">Pinta Con Música</h2>
+  <button id="btnSound" class="sound-btn" hidden>🔊 Toca aquí para escuchar</button>
+  <nav class="menu-list">
+    <button data-go="songs"        style="--c:#39ff14">Seleccionar canción</button>
+    <button data-go="achievements" style="--c:#fff01f">Logros</button>
+    <button data-go="stats"        style="--c:#2d9cff">Estadísticas</button>
+    <button data-go="gallery"      style="--c:#ff2a4d">Galería</button>
+    <button data-go="shop"         style="--c:#ff00e5">Tienda</button>
+  </nav>
+  <footer class="credit">Proyecto creado por YEPJ</footer>
+</section>
+
+<!-- CANCIONES -->
+<section id="songs" class="screen page">
+  <header class="page-head"><button class="back" data-go="menu">← Menú</button><h2>Seleccionar canción</h2><span class="coins"></span></header>
+  <div id="songList" class="list"></div>
+  <label class="file-btn">Cargar canciones desde mi equipo
+    <input id="fileIn" type="file" accept="audio/mpeg,.mp3" multiple hidden>
+  </label>
+</section>
+
+<!-- LOGROS -->
+<section id="achievements" class="screen page">
+  <header class="page-head"><button class="back" data-go="menu">← Menú</button><h2>Logros</h2></header>
+  <div id="achList" class="list"></div>
+</section>
+
+<!-- ESTADÍSTICAS -->
+<section id="stats" class="screen page">
+  <header class="page-head"><button class="back" data-go="menu">← Menú</button><h2>Estadísticas</h2></header>
+  <div id="statBox" class="list"></div>
+</section>
+
+<!-- GALERÍA -->
+<section id="gallery" class="screen page">
+  <header class="page-head"><button class="back" data-go="menu">← Menú</button><h2>Galería</h2></header>
+  <p class="hint">Termina canciones con buena precisión: cada pintura pide un porcentaje mínimo de aciertos para desbloquearse.</p>
+  <div id="galGrid" class="grid"></div>
+</section>
+
+<!-- TIENDA -->
+<section id="shop" class="screen page">
+  <header class="page-head"><button class="back" data-go="menu">← Menú</button><h2>Tienda de colores</h2><span class="coins"></span></header>
+  <p class="hint">Juegas con 4 colores. Toca un color tuyo para ponerlo en tu paleta (sale el más antiguo). Toca un fondo para comprarlo y usarlo.</p>
+  <h3>Colores</h3>
+  <div id="slots" class="slots"></div>
+  <div id="shopGrid" class="grid small"></div>
+  <h3>Fondos</h3>
+  <canvas id="bgPrev" width="640" height="240"></canvas>
+  <div id="bgGrid" class="grid small"></div>
+</section>
+
+<!-- JUEGO -->
+<section id="game" class="screen">
+  <header class="g-top">
+    <button id="btnPause">⏸ Pausa</button>
+    <div class="g-hud"><b id="hudAcc">100%</b><span id="hudCombo"></span></div>
+    <button id="btnExit">✕ Salir</button>
+  </header>
+  <div class="g-bar"><i id="prog"></i></div>
+  <div class="g-hw"><canvas id="bg"></canvas><canvas id="cv"></canvas><div id="toast"></div><div id="count"></div></div>
+  <canvas id="paint"></canvas>
+  <div id="pad"><button data-l="0"></button><button data-l="1"></button><button data-l="2"></button><button data-l="3"></button></div>
+
+  <div id="loading" class="overlay show"><p>Analizando el ritmo…</p></div>
+  <div id="pause" class="overlay"><div class="box"><h3>Pausa</h3>
+    <button id="btnResume">Continuar</button><button id="btnQuit">Salir al menú</button></div></div>
+  <div id="result" class="overlay"><div class="box"><h3>¡Canción completada!</h3>
+    <div id="resScore"></div><p id="resInfo"></p><button id="btnBack">Volver a canciones</button></div></div>
+</section>
+
+<!-- MODO -->
+<div id="modeModal" class="overlay"><div class="box"><h3>¿Cómo quieres jugar?</h3>
+  <p id="modeSong"></p>
+  <button data-mode="key">⌨ Teclado (A S D F)</button>
+  <button data-mode="touch">👆 Tocar</button>
+  <button id="modeCancel" class="ghost">Cancelar</button></div></div>
+
+<div id="notif"></div>
+<script src="game.js"></script>
+</body>
+</html>
